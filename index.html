@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Esquina Tacos - Authentic Mexican Flavours</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Custom Font Definition */
+@font-face {
+    font-family: 'DistilleryStrong';
+    /* Make sure this path is correct relative to your CSS file */
+    /* Example: Assumes CSS is in root, fonts in 'fonts' subfolder */
+    src: url('fonts/DistilleryStrong.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* --- Variables --- */
+:root {
+    --primary-color: #7b1252; /* Primary Color (Dark Magenta/Purple) */
+    --secondary-color: #2ECC71; /* Green accent */
+    --whatsapp-green: #25D366; /* WhatsApp color */
+    --dark-color: #3b5167; /* Dark blue/grey */
+    --light-color: #ECF0F1; /* Light grey */
+    --white-color: #FFFFFF;
+    --text-color: rgb(71, 70, 70); /* Darker grey for text */
+    --footer-bg: #2C3E50;
+    --card-bg: var(--white-color); /* Card background set to white */
+    --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    --border-radius: 8px;
+}
+
+/* --- Global Styles --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif; /* Default font */
+    text-decoration: none;
+    list-style: none;
+    scroll-behavior: smooth;
+    border: none;
+    outline: none;
+}
+
+html {
+    font-size: 16px; /* Base font size */
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+body {
+    background-color: var(--light-color); /* Main background */
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+section {
+    padding: 80px 7%; /* Vertical and horizontal padding */
+    text-align: center;
+}
+
+.section-subtitle {
+    display: block;
+    font-size: 1rem;
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    color: var(--dark-color);
+    margin-bottom: 30px;
+    font-weight: 700;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block; /* Remove extra space below images */
+}
+
+/* --- Header --- */
+#header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between; /* Keeps logo left, nav right */
+    align-items: center;
+    padding: 15px 7%;
+    background: rgb(249, 157, 64); 
+    border:2px solid rgb(255, 192, 129);   /* White background for header */ /* White background for header */
+    box-shadow: var(--dark-color);
+    z-index:1000;
+    border-bottom-left-radius:2.5rem;
+    border-bottom-right-radius:2.5rem ;
+    transition: background 0.3s ease;
+}
+
+/* Styling for the text logo in header */
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    /* Use custom font */
+    font-family:'DistilleryStrong', sans-serif; /* Added Poppins fallback */
+}
+
+
+.navbar a {
+    font-size: 1.3rem;
+    color: black;
+    margin-left: 25px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    font-family:'DistilleryStrong', sans-serif;
+}
+
+.navbar a:hover,
+.navbar a.active { /* Add 'active' class via JS if needed */
+    color: black;
+    padding: 0.8rem;
+    border-radius:2.5rem;
+    background-color:white;
+    transition: 0.2s ease;
+
+}
+
+#menu-icon {
+    font-size: 1.8rem;
+    color: var(--dark-color);
+    cursor: pointer;
+    display: none; /* Hidden by default, shown on mobile */
+}
+
+/* --- Button Styles --- */
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: var(--border-radius);
+    transition: background-color 0.3s ease, transform 0.2s ease, filter 0.3s ease;
+    cursor: pointer;
+    text-align: center;
+}
+
+/* Hover effect uses a calculated darker shade of primary */
+.btn:hover {
+    filter: brightness(85%);
+    transform: scale(1.05);
+}
+
+/* --- Hero Section --- */
+.home {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    align-items: center;
+    gap: 2rem;
+    /* Background image and color */
+    /* ** Ensure 'images/9363102.jpg' path is correct ** */
+    background-image:url(2.jpg);
+
+    background-color: var(--light-color); /* Fallback color */
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    text-align: left; /* Override section default */
+    padding-top: 200px; /* Increased padding */
+    padding-bottom: 80px; /* Added padding at bottom */
+    position: relative; /* For potential overlay */
+}
+
+/* Optional: Add an overlay for better text contrast over image */
+/* .home::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(236, 240, 241, 0.6); /* Adjust light color opacity */
+    /* z-index: 1;
+} */
+
+.home-content, .logo-img {
+    position: relative; /* Ensure content is above overlay if used */
+    z-index: 2;
+    
+}
+
+.home-content {
+    max-width: 600px;
+    
+    
+}
+
+.home-content h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--dark-color);
+    line-height: 1.2;
+    margin-bottom: 10px;
+    filter: brightness(50%);
+    font-family:'DistilleryStrong', sans-serif; 
+}
+
+.home-content h1 span {
+    color: #7b1252;
+    display: block; /* Makes "Welcome To" stack */
+    font-size: 4rem; /* Increased size */
+    font-weight: 500; /* Normal weight might be better for Distillery */
+    filter:brightness(110%);
+    font-family:'DistilleryStrong', sans-serif; /* Added Poppins fallback */
+}
+
+.home-content h3 {
+    font-size: 1.5rem;
+    color: rgb(236, 233, 233);
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+.home-content p {
+    font-size: 1.1rem;
+    font-weight: 700; /* Specific weight */
+    margin-bottom: 30px;
+}
+
+
+.social-icons a {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    background-color: var(--dark-color);
+    color: var(--white-color);
+    border-radius: 50%;
+    font-size: 1.2rem;
+    margin-right: 10px;
+    margin-bottom: 20px; /* Spacing */
+    text-align: center;
+    line-height: 40px; /* Center icon vertically */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.social-icons a:hover {
+    background-color: var(--primary-color);
+    transform: translateY(-3px);
+}
+
+/* Styling for the logo container on the right of Hero */
+.logo-img {
+    position: relative;
+    max-width: 400px; /* Limit container size */
+    margin: 0 auto; /* Center if grid column is wider */
+    padding: 20px; /* Add some padding around the logo */
+}
+
+/* Styling for the circular logo image in Hero */
+.logo-img img {
+    width: 100%; /* Make image responsive within container */
+    max-width: 350px; /* Max size of the logo itself */
+    height: auto; /* Maintain aspect ratio initially */
+    aspect-ratio: 1 / 1; /* Force a square aspect ratio */
+    border-radius: 50%; /* Make it circular */
+    object-fit: cover; /* Cover the square area, cropping if needed */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+    margin: 0 auto; /* Center the image if container is wider */
+    display: block;
+    border: 4px solid var(--white-color); /* Optional white border */
+}
+
+.slider {
+    width: 100%;
+    overflow: hidden;
+    padding: 20px;
+    background-color: rgb(249, 200, 108); /* light background for contrast */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
+  
+  .row {
+    display: flex;
+    gap: 20px;
+    animation: slide-left 30s linear infinite;
+  }
+  
+  .column {
+    flex: 0 0 auto;
+  }
+  
+  .column img {
+    width: 300px;
+    height: 200px;
+    border-radius: 12px;
+    object-fit: cover;
+    transition: transform 0.4s ease, box-shadow 0.3s ease;
+  }
+  
+  .column img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.3);
+  }
+  
+  /* Slide animation */
+  @keyframes slide-left {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  
+
+/* --- About Us Section --- */
+.about {
+    background-color: rgb(249, 200, 108); /* Keeps this section distinct */
+}
+
+.section-subtitle{
+    color:#7b1252;
+    font-size: 2.5rem;
+    font-weight:500;
+    font-family: 'DistilleryStrong', sans-serif;
+    margin-top:-1rem;
+    margin-bottom:1rem;
+}
+
+.about p {
+    max-width: 800px; /* Limit text width for readability */
+    margin: 0 auto 30px auto; /* Center the paragraph block */
+    text-align: center;
+    color:black;
+    font-weight:500;
+}
+
+.about p span{
+    color:black;
+    font-size:2rem;
+    font-weight:800;
+}
+
+.location {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: rgb(227, 149, 4);
+    border-radius: var(--border-radius);
+    display: inline-block; /* Size to content */
+    box-shadow: var(--shadow);
+}
+
+.location h3 {
+    color: var(--dark-color);
+    margin-bottom: 10px;
+}
+
+.location p {
+    margin-bottom: 15px;
+}
+
+.map-link {
+    display: inline-flex; /* Align icon and text */
+    align-items: center;
+    gap: 8px; /* Space between icon and text */
+    color: var(--primary-color);
+    font-weight: 600;
+    transition: color 0.3s ease, filter 0.3s ease;
+}
+
+.map-link i {
+    font-size: 1.2rem;
+}
+
+.map-link:hover {
+    filter: brightness(85%);
+}
+
+
+/* --- Products Section (Cards) --- */
+.products {
+    background-color: var(--light-color); /* Matches body background */
+    background-image: url(images/portrait.jpg);
+}
+
+.products span{
+    color:orange;
+    font-size:2rem;
+    font-family: 'DistilleryStrong', sans-serif;
+}
+
+.products h2.section-title {
+    margin-bottom: 15px; /* Less space between title and first card row */
+    color:white;
+    font-family: 'DistilleryStrong', sans-serif;
+}
+
+.products h2.section-title:nth-of-type(2) { /* Style second title "Legit Bites" */
+    margin-top: 60px; /* Add space before the second category */
+    margin-bottom: 15px;
+    color:white;
+    font-family:'DistilleryStrong', sans-serif;
+}
+
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid */
+    gap: 25px; /* Space between cards */
+    justify-content: center; /* Center grid items if they don't fill the row */
+    margin-top: 30px;
+}
+
+.card {
+    background-color: var(--card-bg); /* Should be white */
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    overflow: hidden; /* Keep image corners rounded */
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column; /* Stack image and content */
+    
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    
+}
+
+.card img {
+    width: 100%;
+    height: 200px; /* Fixed height for consistency */
+    object-fit: cover; /* Cover the area, cropping if needed */
+    border-radius: 0; /* Ensure card images are not circular */
+    aspect-ratio: auto; /* Reset aspect ratio for card images */
+
+}
+
+.card-content {
+    padding: 20px;
+    flex-grow: 1; /* Allow content to fill space */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Push title up, description down */
+}
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--dark-color);
+    font-family: 'DistilleryStrong', sans-serif;
+    margin-bottom: 10px;
+}
+
+.card-description {
+    font-size: 1rem;
+    color: black;
+    flex-grow: 1; /* Takes up remaining space */
+}
+
+/* --- Contact Section --- */
+.contacts {
+    background-color: rgb(18, 18, 83); /* Keeps this section distinct */
+    border:2px solid goldenrod;
+}
+
+.contact-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Changed to equal columns */
+    gap: 40px;
+    align-items: center; /* Vertically align items in the middle */
+    max-width: 1100px;
+    margin: 0 auto; /* Center the container */
+    text-align: left; /* Override section default */
+    color:white;
+}
+
+
+
+.contact-info h3 {
+    font-size: 1.8rem;
+    color: white;
+    margin-bottom: 15px;
+}
+
+.contact-info p {
+    margin-bottom: 20px;
+    font-size: 1rem;
+}
+
+.contact-info .social-icons a {
+    background-color: var(--light-color);
+    color: var(--dark-color);
+}
+.contact-info .social-icons a:hover {
+    background-color: gold;
+    color: rgb(53, 13, 13);
+}
+
+/* Styles for WhatsApp Contact Area */
+.whatsapp-contact {
+    text-align: center; /* Center content */
+    padding: 30px 20px; /* More padding */
+    background-color: var(--light-color); /* Optional background */
+    border-radius: var(--border-radius);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow); /* Add shadow */
+}
+
+.whatsapp-contact h3 {
+    font-size: 1.6rem; /* Slightly smaller than info */
+    color: var(--dark-color);
+    margin-bottom: 10px;
+}
+
+.whatsapp-contact p {
+    font-size: 1rem;
+    margin-bottom: 25px;
+    color: var(--text-color);
+}
+
+.section-title2{
+    color:white;
+    font-size: 2.8rem;
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 3rem;
+    margin-top:-2rem;
+}
+.whatsapp-btn {
+    display: inline-flex; /* Align icon and text nicely */
+    align-items: center;
+    gap: 10px; /* Space between icon and text */
+    padding: 15px 35px; /* Larger padding */
+    background-color: var(--whatsapp-green);
+    color: var(--white-color);
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 50px; /* More rounded button */
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-decoration: none; /* Ensure link is not underlined */
+}
+
+.whatsapp-btn i {
+    font-size: 1.5rem; /* Larger WhatsApp icon */
+}
+
+.whatsapp-btn:hover {
+    background-color: #1ebe57; /* Slightly darker WhatsApp green */
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+}
+
+
+/* --- Footer --- */
+.footer {
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 20px 7%;
+    font-size: 0.9rem;
+
+}
+
+/* --- Animations --- */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(50px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes popIn {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.animate-fade-in {
+    animation: fadeIn 1s ease-out forwards;
+}
+
+.animate-slide-in {
+    animation: slideIn 1s ease-out forwards;
+}
+
+/* Apply pop-in animation to cards */
+.animate-pop-in {
+    opacity: 0; /* Start hidden */
+    animation: popIn 0.6s ease-out forwards;
+}
+
+/* Stagger card animations */
+.card-container .card:nth-child(1) { animation-delay: 0.1s; }
+.card-container .card:nth-child(2) { animation-delay: 0.2s; }
+.card-container .card:nth-child(3) { animation-delay: 0.3s; }
+.card-container .card:nth-child(4) { animation-delay: 0.4s; }
+.card-container .card:nth-child(5) { animation-delay: 0.5s; }
+.card-container .card:nth-child(6) { animation-delay: 0.6s; }
+/* Add more if needed */
+
+
+/* --- Responsiveness (Media Queries) --- */
+
+/* Tablets and Larger Phones */
+@media (max-width: 992px) {
+    html { font-size: 15px; }
+    section { padding: 60px 5%; }
+    .home { grid-template-columns: 1fr; text-align: center; min-height: auto; padding-bottom: 60px; padding-top: 150px;} /* Adjust hero padding */
+    .home-content { order: 1; max-width: 100%; text-align: center;}
+    .logo-img { order: 2; margin-top: 30px; max-width: 300px;}
+    .home-content h1 { font-size: 3rem; }
+    .home-content h1 span { font-size: 3.5rem; }
+    .home-content h3 { font-size: 1.3rem; }
+    .contact-container {
+        grid-template-columns: 1fr; /* Stack columns */
+        gap: 30px; /* Reduce gap when stacked */
+     }
+    .contact-info {
+        margin-bottom: 0; /* Remove extra margin */
+        text-align: center;
+    }
+    .contact-info .social-icons { justify-content: center; }
+    .whatsapp-contact { margin-top: 20px; }
+}
+
+/* Smaller Phones */
+@media (max-width: 768px) {
+    #header { padding: 15px 5%; }
+    #menu-icon { display: block; }
+    .navbar {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--white-color);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+        transition: clip-path 0.4s ease;
+    }
+    .navbar.active {
+         clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+    .navbar a {
+        display: block;
+        margin: 15px 0;
+        padding: 5px 0;
+        width: 100%;
+        text-align: center;
+    }
+    .home { padding-top: 120px;} /* Adjust hero padding */
+    .home-content h1 { font-size: 2.5rem; }
+    .home-content h1 span { font-size: 3rem; }
+    .home-content h3 { font-size: 1.1rem; }
+    .section-title { font-size: 2rem; }
+    .card-container { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+    .logo-img { max-width: 250px; }
+    .whatsapp-btn { padding: 12px 30px; font-size: 1rem;}
+    .whatsapp-btn i { font-size: 1.3rem;}
+    .contact-container { grid-template-columns: 1fr; } /* Ensure stacking */
+
+}
+
+@media (max-width: 480px) {
+    html { font-size: 14px; }
+    section { padding: 50px 3%; }
+    #header { padding: 15px 3%; }
+    .logo { font-size: 1.5rem; }
+    .home { padding-top: 100px;} /* Adjust hero padding */
+    .home-content h1 { font-size: 2.2rem; }
+    .home-content h1 span { font-size: 2.5rem; }
+    .btn { padding: 10px 25px; font-size: 0.9rem;}
+    .card-container { grid-template-columns: 1fr; }
+    .logo-img { max-width: 200px; }
+    .whatsapp-btn { padding: 10px 25px; font-size: 0.9rem;}
+    .whatsapp-btn i { font-size: 1.2rem;}
+}
+    </style>
+</head>
+<body>
+
+    <header id="header">
+        <a href="#home" class="logo">La Esquina Tacos</a>
+        <nav class="navbar">
+            <a href="#about">About Us</a>
+            <a href="#products">Items</a>
+            <a href="#contacts">Contact Us</a>
+        </nav>
+        <div id="menu-icon" class="fas fa-bars"></div>
+    </header>
+
+    <main>
+        <section class="home" id="home">
+            <div class="home-content animate-fade-in">
+                <h1><span>Welcome To</span> La Esquina Tacos</h1>
+                <h3>Your Friendly Neighbourhood Tacos</h3>
+                <div class="social-icons">
+                     <a href="https://www.instagram.com/la_esquina_blr/?utm_source=ig_web_button_share_sheet" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" aria-label="Linkedin"><i class="fa-brands fa-linkedin"></i></a>
+                </div>
+                 <a href="images/menu.pdf" class="btn" target="_blank">Our Menu</a>
+            </div>
+
+            <div class="logo-img animate-slide-in">
+                 <img src="images/Capture.PNG" alt="La Esquina Tacos Logo">
+            </div>
+        </section>
+        <div class="slider">
+            <div class="row">
+                <div class="column">
+                    <img src="items/avocado-toast-sourdough.jpg" alt="">
+                </div>
+                <div class="column">
+                    <img src="items/dsc_0955-2.jpg" alt="">
+                </div>
+                <div class="column">
+                    <img src="items/Easy-Taco-Recipe-Dinner-Board-3-700x1050.jpg" alt="">
+                </div>
+                <div class="column">
+                    <img src="items/images.jpg" alt="">
+                </div>
+                <div class="column">
+                    <img src="items/loaded-nachos-banner.jpg" alt="">
+                </div>
+                <div class="column">
+                    <img src="items/Taco-Filling-Recipe-35365-279578d33e-1638547085.jpg" alt="">
+                </div>
+                <div class="column">
+                    <img src="images/emily-simenauer-IlAPq27FxZ0-unsplash.jpg" alt="">
+                </div>
+            </div>
+        </div>
+        <section class="about" id="about">
+            <span class="section-subtitle">About Us</span>
+            <h2 class="section-title">🌮 Welcome to La Esquina 🌮</h2>
+            <p>
+                We are a passionate new startup—a Mexican food joint on a flavorful mission! Inspired by the vibrant beauty of Mexican folk art, we bring not just food, but the soul of Mexico right to the streets of India.
+                <br><br>
+                At La Esquina, we offer a wide and exquisite assortment of authentic Mexican dishes, crafted to delight your taste buds and introduce you to the rich, bold flavors of New Mexico. This is more than just a meal—it’s a cultural experience.
+                <br><br>
+                <span>✨ One Flavour All Corners! 🌯❤️</span>
+            </p>
+            <div class="location">
+                 <h3>Find Us At:</h3>
+                 <p>CKR Complex, Segehalli, Krishnarajapuram Bengaluru.</p>
+                 <a href="https://g.co/kgs/1WhGesW" class="map-link" target="_blank" rel="noopener noreferrer" aria-label="View Location on Google Maps">
+                    <i class="fa-solid fa-shop"></i> View on Map
+                 </a>
+            </div>
+        </section>
+
+        <section class="products" id="products">
+            <span class="section-subtitle">Our Menu</span>
+            <h2 class="section-title">Taco Menu</h2>
+            <div class="card-container">
+                <div class="card animate-pop-in">
+                     <img src="images/frankie-lopez-_j4S4V2C8ew-unsplash.jpg" alt="Fajita Tacos">
+                    <div class="card-content">
+                        <div class="card-title">Fajita Tacos</div>
+                        <div class="card-description">Juicy smoky grilled pepper fajita topped with beans, pico and veggies.</div>
+                    </div>
+                </div>
+                <div class="card animate-pop-in">
+                    <img src="images/jarett-lopez-6WHl6T-fxU0-unsplash.jpg" alt="Crispy Peri Peri Potato Taco">
+                    <div class="card-content">
+                        <div class="card-title">Crispy Peri Peri Potato Taco</div>
+                        <div class="card-description">Crispy potato loaded with veggies and chipotle mayo.</div>
+                    </div>
+                </div>
+                <div class="card animate-pop-in">
+                     <img src="images/tai-s-captures-JiRSy0GfqPA-unsplash.jpg" alt="Broccoli Fajita Fiesta">
+                    <div class="card-content">
+                        <div class="card-title">Broccoli Fajita Fiesta</div>
+                        <div class="card-description">Yummy broccoli topped with chipotle and fajita with cream sauce, salsa and greens.</div>
+                    </div>
+                </div>
+                <div class="card animate-pop-in">
+                    <img src="items/dsc_0955-2.jpg" alt="BBQ Paneer Taco">
+                    <div class="card-content">
+                        <div class="card-title">BBQ Paneer Taco</div>
+                        <div class="card-description">Super smoky paneer topped with veggies, mint mayo and salsa.</div>
+                    </div>
+                </div>
+                <div class="card animate-pop-in">
+                      <img src="images/jeswin-thomas-z_PfaGzeN9E-unsplash.jpg" alt="Double Trouble Taco">
+                     <div class="card-content">
+                        <div class="card-title">Double Trouble</div>
+                        <div class="card-description">Your choice of toppings with double layered taco and tortilla with cheese center filling, loaded with greens and salsa.</div>
+                    </div>
+                </div>
+                 <div class="card animate-pop-in">
+                    <img src="items/Taco-Filling-Recipe-35365-279578d33e-1638547085.jpg" alt="Mexi Beany Taco">
+                    <div class="card-content">
+                        <div class="card-title">Mexi Beany Taco</div>
+                        <div class="card-description">Flavorful Mexican beans loaded with fajita, veggies, salsa and cheese.</div>
+                    </div>
+                </div>
+                 <div class="card animate-pop-in">
+                    <img src="items/Easy-Taco-Recipe-Dinner-Board-3-700x1050.jpg" alt="The Great Assorted Platter">
+                    <div class="card-content">
+                        <div class="card-title">The Great Assorted Platter</div>
+                        <div class="card-description">Platter fully loaded with all toppings and sauces, served with two taco shells.</div>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="section-title">Legit Bites</h2>
+             <div class="card-container">
+                 <div class="card animate-pop-in">
+                     <img src="unwrapped-tortilla-green-plate.jpg" alt="Ranchero Tostada">
+                    <div class="card-content">
+                        <div class="card-title">Ranchero Tostada</div>
+                        <div class="card-description">Crunchy sourdough loaded with sour cream jalapeno, ranch and salsa with a tickle of cheese.</div>
+                    </div>
+                </div>
+                 <div class="card animate-pop-in">
+                    <img src="items/loaded-nachos-banner.jpg" alt="Loaded Nachos">
+                    <div class="card-content">
+                        <div class="card-title">Loaded Nachos</div>
+                        <div class="card-description">Mega toppings with salsa, ranch, cream, guacamole and much more.</div>
+                    </div>
+                </div>
+                 <div class="card animate-pop-in">
+                     <img src="bottom-view-chicken-nuggets-lettuce-sauce-plate-dark-red-table.jpg" alt="Pico Papas">
+                    <div class="card-content">
+                        <div class="card-title">Pico Papas</div>
+                        <div class="card-description">Crunchy peri peri potato bites loaded with salsa, veggies, ranch, chipotle and lettuce.</div>
+                    </div>
+                </div>
+                 <div class="card animate-pop-in">
+                    <img src="items/avocado-toast-sourdough.jpg" alt="Holy Guac Tostada">
+                    <div class="card-content">
+                        <div class="card-title">Holy Guac Tostada</div>
+                        <div class="card-description">Simple avocado spread on crunchy sourdough topped with salsa and ranch.</div>
+                    </div>
+                </div>
+                 <div class="card animate-pop-in">
+                      <img src="melted-cheese-with-pita-pickled-chili.jpg" alt="Creema Tostada">
+                     <div class="card-content">
+                        <div class="card-title">Creema Tostada</div>
+                        <div class="card-description">Comforting cheesy sweetcorn and veggies topped on perfectly toasted sourdough.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contacts" id="contacts">
+             <h2 class="section-title2">Contact Us</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Connect with Us</h3>
+                    <p>Have questions or feedback? We'd love to hear from you!</p>
+                     <div class="social-icons">
+                        <a href="tel:+917011609027" aria-label="Call Us"><i class="fa-solid fa-phone"></i></a>
+                        <a href="https://www.instagram.com/la_esquina_blr/?utm_source=ig_web_button_share_sheet" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://x.com/LaEsquinaTacos" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                    </div>
+                    <p>Reach out via phone, social media, or chat with us directly on WhatsApp!</p>
+                </div>
+
+                <div class="whatsapp-contact">
+                    <h3>Chat on WhatsApp</h3>
+                    <p>Click below to start a conversation directly.</p>
+                    <a href="https://wa.me/917011609027" class="whatsapp-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-brands fa-whatsapp"></i> Chat Now
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>© <span id="year"></span> La Esquina Tacos. All rights reserved.</p>
+        <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+    </footer>
+
+<script>
+ let menu = document.querySelector('#menu-icon');
+ let navbar = document.querySelector('.navbar');
+
+ menu.onclick = () => {
+     menu.classList.toggle('fa-times'); // Toggles X icon
+     navbar.classList.toggle('active'); // Toggles menu visibility
+ }
+
+ // Close menu when a link is clicked or scrolling
+ window.onscroll = () => {
+      menu.classList.remove('fa-times');
+      navbar.classList.remove('active');
+ }
+ navbar.querySelectorAll('a').forEach(link => {
+     link.onclick = () => {
+         menu.classList.remove('fa-times');
+         navbar.classList.remove('active');
+     }
+ });
+</script>
+
+</body>
+</html>

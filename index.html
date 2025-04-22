@@ -99,9 +99,9 @@ img {
     justify-content: space-between; /* Keeps logo left, nav right */
     align-items: center;
     padding: 15px 7%;
-    background: rgb(249, 157, 64); 
-    border:2px solid rgb(255, 192, 129);   /* White background for header */ /* White background for header */
-    box-shadow: var(--dark-color);
+    background: rgb(249, 157, 64);
+    border:2px solid rgb(255, 192, 129);
+    box-shadow: 0 5px 15px var(--dark-color); /* Updated shadow to use color */
     z-index:1000;
     border-bottom-left-radius:2.5rem;
     border-bottom-right-radius:2.5rem ;
@@ -114,7 +114,7 @@ img {
     font-weight: 700;
     color: var(--primary-color);
     /* Use custom font */
-    font-family:'DistilleryStrong', sans-serif; /* Added Poppins fallback */
+    font-family:'DistilleryStrong', 'Poppins', sans-serif; /* Added Poppins fallback */
 }
 
 
@@ -123,7 +123,7 @@ img {
     color: black;
     margin-left: 25px;
     font-weight: 500;
-    transition: color 0.3s ease;
+    transition: color 0.3s ease, background-color 0.2s ease, padding 0.2s ease; /* Added transitions */
     font-family:'DistilleryStrong', sans-serif;
 }
 
@@ -133,8 +133,6 @@ img {
     padding: 0.8rem;
     border-radius:2.5rem;
     background-color:white;
-    transition: 0.2s ease;
-
 }
 
 #menu-icon {
@@ -172,9 +170,8 @@ img {
     align-items: center;
     gap: 2rem;
     /* Background image and color */
-    /* ** Ensure 'images/9363102.jpg' path is correct ** */
+    /* ** Ensure '2.jpg' path is correct ** */
     background-image:url(2.jpg);
-
     background-color: var(--light-color); /* Fallback color */
     background-size: cover;
     background-position: center center;
@@ -185,28 +182,13 @@ img {
     position: relative; /* For potential overlay */
 }
 
-/* Optional: Add an overlay for better text contrast over image */
-/* .home::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(236, 240, 241, 0.6); /* Adjust light color opacity */
-    /* z-index: 1;
-} */
-
 .home-content, .logo-img {
     position: relative; /* Ensure content is above overlay if used */
     z-index: 2;
-    
 }
 
 .home-content {
     max-width: 600px;
-    
-    
 }
 
 .home-content h1 {
@@ -216,7 +198,7 @@ img {
     line-height: 1.2;
     margin-bottom: 10px;
     filter: brightness(50%);
-    font-family:'DistilleryStrong', sans-serif; 
+    font-family:'DistilleryStrong', 'Poppins', sans-serif; /* Added fallback */
 }
 
 .home-content h1 span {
@@ -225,19 +207,24 @@ img {
     font-size: 4rem; /* Increased size */
     font-weight: 500; /* Normal weight might be better for Distillery */
     filter:brightness(110%);
-    font-family:'DistilleryStrong', sans-serif; /* Added Poppins fallback */
+    font-family:'DistilleryStrong', 'Poppins', sans-serif; /* Added fallback */
 }
 
 .home-content h3 {
     font-size: 1.5rem;
-    color: rgb(236, 233, 233);
+    color: rgb(236, 233, 233); /* Light text color */
     font-weight: 800;
     margin-bottom: 10px;
+    /* Adding text shadow for contrast */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 .home-content p {
     font-size: 1.1rem;
     font-weight: 700; /* Specific weight */
     margin-bottom: 30px;
+     /* Adding text shadow for contrast */
+    color: var(--white-color); /* Making paragraph white for contrast */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
 }
 
 
@@ -280,77 +267,96 @@ img {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
     margin: 0 auto; /* Center the image if container is wider */
     display: block;
-    border: none; /* Optional white border */
+    border: none; /* Removed white border */
 }
 
+/* --- Horizontal Image Slider --- */
 .slider {
     width: 100%;
     overflow: hidden;
-    padding: 20px;
+    padding: 20px 0; /* Adjusted padding */
     background-color: rgb(249, 200, 108); /* light background for contrast */
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    white-space: nowrap; /* Keep items in one line */
   }
-  
+
   .row {
-    display: flex;
-    gap: 20px;
-    animation: slide-left 30s linear infinite;
+    display: inline-block; /* Allow items to scroll horizontally */
+    /* Duplicate content for seamless loop - If you have N items, you need 2*N */
+    /* If you have 7 items, the animation width needs adjustment based on 14 items */
+    animation: slide-left 40s linear infinite; /* Adjust duration based on number of items */
   }
-  
+
   .column {
-    flex: 0 0 auto;
+    display: inline-block; /* Display items horizontally */
+    vertical-align: top;
+    margin-right: 20px; /* Gap between images */
+    width: 300px; /* Fixed width for each item */
   }
-  
+
+  .column:last-child {
+    margin-right: 0;
+  }
+
   .column img {
-    width: 300px;
+    width: 100%; /* Make image fill the column */
     height: 200px;
     border-radius: 12px;
     object-fit: cover;
     transition: transform 0.4s ease, box-shadow 0.3s ease;
   }
-  
+
   .column img:hover {
     transform: scale(1.05);
     box-shadow: 0 12px 25px rgba(0,0,0,0.3);
   }
-  
+
   /* Slide animation */
   @keyframes slide-left {
     0% {
       transform: translateX(0%);
     }
     100% {
-      transform: translateX(-50%);
+        /* Adjust based on total width of duplicated items */
+        /* If 7 items at 300px + 20px gap = 7 * 320 = 2240px. Move by this amount */
+      transform: translateX(-2240px); /* (Item Width + Gap) * Number of Items */
     }
   }
-  
+
 
 /* --- About Us Section --- */
 .about {
-    background-color: rgb(249, 200, 108); /* Keeps this section distinct */
+    background-color: rgb(249, 200, 108); /* Background color */
 }
 
-.section-subtitle{
-    color:#7b1252;
-    font-size: 2.5rem;
-    font-weight:500;
-    font-family: 'DistilleryStrong', sans-serif;
-    margin-top:-1rem;
-    margin-bottom:1rem;
+/* Reverted .section-subtitle styling for About section */
+.about .section-subtitle{
+    display: block;
+    font-size: 1rem; /* Original size */
+    color: var(--primary-color); /* Original color */
+    font-weight: 600; /* Original weight */
+    font-family: 'Poppins', sans-serif; /* Back to default font */
+    margin-top: 0; /* Reset margin */
+    margin-bottom: 5px; /* Original margin */
+    text-transform: uppercase; /* Original transform */
+    letter-spacing: 1px; /* Original spacing */
 }
 
 .about p {
-    max-width: 800px; /* Limit text width for readability */
-    margin: 0 auto 30px auto; /* Center the paragraph block */
+    max-width: 800px;
+    margin: 0 auto 30px auto;
     text-align: center;
     color:black;
     font-weight:500;
 }
 
-.about p span{
-    color:black;
-    font-size:2rem;
-    font-weight:800;
+.about p span{ /* Styling for the tagline */
+    display: block; /* Make it appear on its own line */
+    margin-top: 15px; /* Add space above */
+    color: #5e0e40; /* Darker shade of primary */
+    font-size:1.5rem; /* Adjusted size */
+    font-weight:700; /* Bold */
+    font-family: 'Poppins', sans-serif; /* Keep consistent font */
 }
 
 .location {
@@ -358,7 +364,7 @@ img {
     padding: 20px;
     background-color: rgb(227, 149, 4);
     border-radius: var(--border-radius);
-    display: inline-block; /* Size to content */
+    display: inline-block;
     box-shadow: var(--shadow);
 }
 
@@ -369,12 +375,13 @@ img {
 
 .location p {
     margin-bottom: 15px;
+    color: black; /* Ensure location text is readable */
 }
 
 .map-link {
-    display: inline-flex; /* Align icon and text */
+    display: inline-flex;
     align-items: center;
-    gap: 8px; /* Space between icon and text */
+    gap: 8px;
     color: var(--primary-color);
     font-weight: 600;
     transition: color 0.3s ease, filter 0.3s ease;
@@ -391,104 +398,197 @@ img {
 
 /* --- Products Section (Cards) --- */
 .products {
-    background-color: var(--light-color); /* Matches body background */
+    background-color: var(--light-color); /* Fallback */
+     /* ** Ensure 'images/portrait.jpg' path is correct ** */
     background-image: url(images/portrait.jpg);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Keep background fixed on scroll */
+    position: relative; /* For overlay */
 }
 
-.products span{
+/* Optional overlay for product section background */
+.products::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+    z-index: 1;
+}
+
+/* Ensure product content is above the overlay */
+.products > span.section-subtitle,
+.products > h2.section-title,
+.products .card-container {
+    position: relative;
+    z-index: 2;
+}
+
+
+.products span.section-subtitle{ /* Target only subtitle in products */
     color:orange;
     font-size:2rem;
-    font-family: 'DistilleryStrong', sans-serif;
+    font-family: 'DistilleryStrong', 'Poppins', sans-serif; /* Fallback */
 }
 
 .products h2.section-title {
-    margin-bottom: 15px; /* Less space between title and first card row */
-    color:white;
-    font-family: 'DistilleryStrong', sans-serif;
+    margin-bottom: 15px;
+    color:white; /* White text over background */
+    font-family: 'DistilleryStrong', 'Poppins', sans-serif; /* Fallback */
 }
 
-.products h2.section-title:nth-of-type(2) { /* Style second title "Legit Bites" */
-    margin-top: 60px; /* Add space before the second category */
+.products h2.section-title:nth-of-type(2) { /* Legit Bites title */
+    margin-top: 60px;
     margin-bottom: 15px;
     color:white;
-    font-family:'DistilleryStrong', sans-serif;
+    font-family:'DistilleryStrong', 'Poppins', sans-serif; /* Fallback */
 }
 
 .card-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid */
-    gap: 25px; /* Space between cards */
-    justify-content: center; /* Center grid items if they don't fill the row */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    justify-content: center;
     margin-top: 30px;
 }
 
 .card {
-    background-color: var(--card-bg); /* Should be white */
+    background-color: var(--card-bg); /* White */
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
-    overflow: hidden; /* Keep image corners rounded */
+    overflow: hidden;
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
-    flex-direction: column; /* Stack image and content */
-    
+    flex-direction: column;
 }
 
 .card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-    
+    transform: translateY(-10px) scale(1.03); /* Added scale */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Darker shadow */
 }
 
 .card img {
     width: 100%;
-    height: 200px; /* Fixed height for consistency */
-    object-fit: cover; /* Cover the area, cropping if needed */
-    border-radius: 0; /* Ensure card images are not circular */
-    aspect-ratio: auto; /* Reset aspect ratio for card images */
-
+    height: 200px;
+    object-fit: cover;
+    border-radius: 0;
+    aspect-ratio: auto;
 }
 
 .card-content {
     padding: 20px;
-    flex-grow: 1; /* Allow content to fill space */
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Push title up, description down */
+    justify-content: space-between;
 }
 
 .card-title {
     font-size: 1.5rem;
     font-weight: 600;
     color: var(--dark-color);
-    font-family: 'DistilleryStrong', sans-serif;
+    font-family: 'DistilleryStrong', 'Poppins', sans-serif; /* Fallback */
     margin-bottom: 10px;
 }
 
 .card-description {
     font-size: 1rem;
     color: black;
-    flex-grow: 1; /* Takes up remaining space */
+    flex-grow: 1;
 }
+
+/* --- Party Panel Style --- */
+.party-panel {
+    min-height: 180px; /* Increased height */
+    width: 100%;
+    background-color: rgb(249, 157, 64); /* Orange background like header */
+    border-top: 3px solid rgb(255, 192, 129); /* Border like header */
+    border-bottom: 3px solid rgb(255, 192, 129); /* Border like header */
+    padding: 30px 7%; /* Vertical and horizontal padding */
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative; /* For positioning icons */
+    overflow: hidden; /* Hide parts of icons going outside */
+    box-shadow: 0 8px 15px rgba(0,0,0,0.15); /* Add some shadow */
+}
+
+.party-panel .panel-content {
+    position: relative; /* Ensure text is above icons */
+    z-index: 2;
+}
+
+.party-panel h2 {
+    font-family: 'DistilleryStrong', 'Poppins', sans-serif; /* Custom font */
+    font-size: 2.8rem; /* Large size */
+    color: var(--white-color); /* White text */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); /* Text shadow for depth */
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+
+.party-panel p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.2rem;
+    color: #fff2e0; /* Lighter text color, off-white */
+    margin-bottom: 0;
+}
+
+.party-panel p a {
+    color: var(--white-color); /* White link */
+    font-weight: 600;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+}
+
+.party-panel p a:hover {
+    color: var(--primary-color); /* Purple hover */
+}
+
+/* Styling for decorative icons */
+.party-panel .panel-icon {
+    position: absolute;
+    font-size: 4rem; /* Large icons */
+    color: rgba(255, 255, 255, 0.15); /* Very subtle white */
+    z-index: 1; /* Behind text */
+    user-select: none; /* Non-selectable */
+}
+
+.party-panel .icon-left {
+    top: 50%;
+    left: 5%;
+    transform: translateY(-50%) rotate(-20deg);
+}
+
+.party-panel .icon-right {
+    top: 50%;
+    right: 5%;
+    transform: translateY(-50%) rotate(20deg);
+}
+
 
 /* --- Contact Section --- */
 .contacts {
-    background-color: rgb(18, 18, 83); /* Keeps this section distinct */
-    border:2px solid goldenrod;
+    background-color: rgb(18, 18, 83); /* Dark blue */
+    border:2px solid goldenrod; /* Gold border */
 }
 
 .contact-container {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Changed to equal columns */
+    grid-template-columns: 1fr 1fr;
     gap: 40px;
-    align-items: center; /* Vertically align items in the middle */
+    align-items: center;
     max-width: 1100px;
-    margin: 0 auto; /* Center the container */
-    text-align: left; /* Override section default */
-    color:white;
+    margin: 0 auto;
+    text-align: left;
+    color:white; /* Default text color */
 }
-
-
 
 .contact-info h3 {
     font-size: 1.8rem;
@@ -499,72 +599,77 @@ img {
 .contact-info p {
     margin-bottom: 20px;
     font-size: 1rem;
+    color: #eee; /* Lighter text for paragraphs */
 }
 
 .contact-info .social-icons a {
     background-color: var(--light-color);
     color: var(--dark-color);
+    transition: background-color 0.3s ease, color 0.3s ease; /* Added transition */
 }
 .contact-info .social-icons a:hover {
     background-color: gold;
-    color: rgb(53, 13, 13);
+    color: rgb(53, 13, 13); /* Dark red/brown text on hover */
 }
 
 /* Styles for WhatsApp Contact Area */
 .whatsapp-contact {
-    text-align: center; /* Center content */
-    padding: 30px 20px; /* More padding */
-    background-color: var(--light-color); /* Optional background */
+    text-align: center;
+    padding: 30px 20px;
+    background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent white background */
     border-radius: var(--border-radius);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    box-shadow: var(--shadow); /* Add shadow */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Adjusted shadow */
+    border: 1px solid goldenrod; /* Match section border */
 }
 
 .whatsapp-contact h3 {
-    font-size: 1.6rem; /* Slightly smaller than info */
-    color: var(--dark-color);
+    font-size: 1.6rem;
+    color: white; /* White heading */
     margin-bottom: 10px;
 }
 
 .whatsapp-contact p {
     font-size: 1rem;
     margin-bottom: 25px;
-    color: var(--text-color);
+    color: #eee; /* Lighter text */
 }
 
+/* Consistent Section Title for Contact */
 .section-title2{
     color:white;
     font-size: 2.8rem;
     font-family: 'Poppins', sans-serif;
     margin-bottom: 3rem;
-    margin-top:-2rem;
+    margin-top:-2rem; /* Adjust as needed */
+    text-align: center; /* Center title */
 }
 .whatsapp-btn {
-    display: inline-flex; /* Align icon and text nicely */
+    display: inline-flex;
     align-items: center;
-    gap: 10px; /* Space between icon and text */
-    padding: 15px 35px; /* Larger padding */
+    gap: 10px;
+    padding: 15px 35px;
     background-color: var(--whatsapp-green);
     color: var(--white-color);
     font-size: 1.1rem;
     font-weight: 600;
-    border-radius: 50px; /* More rounded button */
+    border-radius: 50px;
     transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
     cursor: pointer;
     text-align: center;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    text-decoration: none; /* Ensure link is not underlined */
+    text-decoration: none;
 }
 
 .whatsapp-btn i {
-    font-size: 1.5rem; /* Larger WhatsApp icon */
+    font-size: 1.5rem;
 }
 
 .whatsapp-btn:hover {
-    background-color: #1ebe57; /* Slightly darker WhatsApp green */
+    background-color: #1ebe57;
     transform: scale(1.05);
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
 }
@@ -577,7 +682,7 @@ img {
     text-align: center;
     padding: 20px 7%;
     font-size: 0.9rem;
-
+    border-top: 2px solid goldenrod; /* Added top border */
 }
 
 /* --- Animations --- */
@@ -626,35 +731,49 @@ img {
 @media (max-width: 992px) {
     html { font-size: 15px; }
     section { padding: 60px 5%; }
-    .home { grid-template-columns: 1fr; text-align: center; min-height: auto; padding-bottom: 60px; padding-top: 150px;} /* Adjust hero padding */
+    .home { grid-template-columns: 1fr; text-align: center; min-height: auto; padding-bottom: 60px; padding-top: 150px;}
     .home-content { order: 1; max-width: 100%; text-align: center;}
     .logo-img { order: 2; margin-top: 30px; max-width: 300px;}
     .home-content h1 { font-size: 3rem; }
     .home-content h1 span { font-size: 3.5rem; }
     .home-content h3 { font-size: 1.3rem; }
     .contact-container {
-        grid-template-columns: 1fr; /* Stack columns */
-        gap: 30px; /* Reduce gap when stacked */
+        grid-template-columns: 1fr;
+        gap: 30px;
      }
     .contact-info {
-        margin-bottom: 0; /* Remove extra margin */
+        margin-bottom: 0;
         text-align: center;
     }
     .contact-info .social-icons { justify-content: center; }
     .whatsapp-contact { margin-top: 20px; }
+    .row { animation: slide-left 60s linear infinite; } /* Slower animation on smaller screens */
+     /* Recalculate based on items */
+     /* 7 items * (300px width + 20px gap) = 2240px */
+    @keyframes slide-left { 100% { transform: translateX(-2240px); } }
+
+    /* Party Panel adjustments */
+    .party-panel h2 { font-size: 2.5rem; }
+    .party-panel p { font-size: 1.1rem; }
+    .party-panel .panel-icon { font-size: 3.5rem; }
+
+
 }
 
 /* Smaller Phones */
 @media (max-width: 768px) {
-    #header { padding: 15px 5%; }
+    #header { padding: 15px 5%; border-bottom-left-radius:1.5rem; border-bottom-right-radius:1.5rem ;}
     #menu-icon { display: block; }
     .navbar {
         position: absolute;
         top: 100%;
         left: 0;
         right: 0;
-        background: var(--white-color);
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        background: rgb(249, 157, 64); /* Match header */
+        border-left: 2px solid rgb(255, 192, 129);
+        border-right: 2px solid rgb(255, 192, 129);
+        border-bottom: 2px solid rgb(255, 192, 129);
+        box-shadow: 0 5px 15px var(--dark-color);
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -666,12 +785,18 @@ img {
     }
     .navbar a {
         display: block;
-        margin: 15px 0;
-        padding: 5px 0;
+        margin: 10px 0; /* Reduced margin */
+        padding: 10px 0; /* Added padding */
         width: 100%;
         text-align: center;
     }
-    .home { padding-top: 120px;} /* Adjust hero padding */
+     .navbar a:hover,
+    .navbar a.active {
+        padding: 10px 0; /* Consistent padding on hover */
+        border-radius: 0; /* Remove radius for full width */
+    }
+
+    .home { padding-top: 120px;}
     .home-content h1 { font-size: 2.5rem; }
     .home-content h1 span { font-size: 3rem; }
     .home-content h3 { font-size: 1.1rem; }
@@ -680,16 +805,28 @@ img {
     .logo-img { max-width: 250px; }
     .whatsapp-btn { padding: 12px 30px; font-size: 1rem;}
     .whatsapp-btn i { font-size: 1.3rem;}
-    .contact-container { grid-template-columns: 1fr; } /* Ensure stacking */
+    .contact-container { grid-template-columns: 1fr; }
+    .column { width: 250px; } /* Adjust slider item width */
+    .column img { height: 160px; }
+     /* Recalculate animation distance for 7 items */
+     /* 7 * (250px + 20px) = 1890px */
+    @keyframes slide-left { 100% { transform: translateX(-1890px); } }
+
+    /* Party Panel adjustments */
+    .party-panel h2 { font-size: 2.2rem; }
+    .party-panel p { font-size: 1rem; }
+    .party-panel .panel-icon { font-size: 3rem; }
+    .party-panel .icon-left { left: 2%; }
+    .party-panel .icon-right { right: 2%; }
 
 }
 
 @media (max-width: 480px) {
     html { font-size: 14px; }
     section { padding: 50px 3%; }
-    #header { padding: 15px 3%; }
+    #header { padding: 15px 3%; border-bottom-left-radius:1rem; border-bottom-right-radius:1rem ;}
     .logo { font-size: 1.5rem; }
-    .home { padding-top: 100px;} /* Adjust hero padding */
+    .home { padding-top: 100px;}
     .home-content h1 { font-size: 2.2rem; }
     .home-content h1 span { font-size: 2.5rem; }
     .btn { padding: 10px 25px; font-size: 0.9rem;}
@@ -697,7 +834,21 @@ img {
     .logo-img { max-width: 200px; }
     .whatsapp-btn { padding: 10px 25px; font-size: 0.9rem;}
     .whatsapp-btn i { font-size: 1.2rem;}
+    .section-title2 { font-size: 2.2rem; }
+    .column { width: 200px; } /* Adjust slider item width */
+    .column img { height: 130px; }
+     /* Recalculate animation distance for 7 items */
+     /* 7 * (200px + 20px) = 1540px */
+     @keyframes slide-left { 100% { transform: translateX(-1540px); } }
+
+     /* Party Panel adjustments */
+    .party-panel { min-height: 150px; padding: 20px 5%; }
+    .party-panel h2 { font-size: 1.8rem; }
+    .party-panel .panel-icon { display: none; } /* Hide icons */
+
 }
+
+
     </style>
 </head>
 <body>
@@ -717,10 +868,10 @@ img {
             <div class="home-content animate-fade-in">
                 <h1><span>Welcome To</span> La Esquina Tacos</h1>
                 <h3>Your Friendly Neighbourhood Tacos</h3>
+                <p>Bringing the vibrant soul of Mexico to the streets of India.</p>
                 <div class="social-icons">
-                     <a href="https://www.instagram.com/la_esquina_blr/?utm_source=ig_web_button_share_sheet" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#" aria-label="Linkedin"><i class="fa-brands fa-linkedin"></i></a>
-                </div>
+                     <a href="https://www.instagram.com/la_esquina_blr/?utm_source=ig_web_button_share_sheet" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" aria-label="Linkedin"><i class="fa-brands fa-linkedin"></i></a> </div>
                  <a href="images/menu.pdf" class="btn" target="_blank">Our Menu</a>
             </div>
 
@@ -728,31 +879,26 @@ img {
                  <img src="images/Capture.PNG" alt="La Esquina Tacos Logo">
             </div>
         </section>
+
         <div class="slider">
             <div class="row">
-                <div class="column">
-                    <img src="items/avocado-toast-sourdough.jpg" alt="">
-                </div>
-                <div class="column">
-                    <img src="items/dsc_0955-2.jpg" alt="">
-                </div>
-                <div class="column">
-                    <img src="items/Easy-Taco-Recipe-Dinner-Board-3-700x1050.jpg" alt="">
-                </div>
-                <div class="column">
-                    <img src="items/images.jpg" alt="">
-                </div>
-                <div class="column">
-                    <img src="items/loaded-nachos-banner.jpg" alt="">
-                </div>
-                <div class="column">
-                    <img src="items/Taco-Filling-Recipe-35365-279578d33e-1638547085.jpg" alt="">
-                </div>
-                <div class="column">
-                    <img src="images/emily-simenauer-IlAPq27FxZ0-unsplash.jpg" alt="">
-                </div>
+                <div class="column"><img src="items/avocado-toast-sourdough.jpg" alt="Avocado Toast"></div>
+                <div class="column"><img src="items/dsc_0955-2.jpg" alt="BBQ Paneer Taco"></div>
+                <div class="column"><img src="items/Easy-Taco-Recipe-Dinner-Board-3-700x1050.jpg" alt="Taco Platter"></div>
+                <div class="column"><img src="items/images.jpg" alt="Crispy Potato Taco"></div>
+                <div class="column"><img src="items/loaded-nachos-banner.jpg" alt="Loaded Nachos"></div>
+                <div class="column"><img src="items/Taco-Filling-Recipe-35365-279578d33e-1638547085.jpg" alt="Taco Filling"></div>
+                <div class="column"><img src="images/emily-simenauer-IlAPq27FxZ0-unsplash.jpg" alt="Tacos Close Up"></div>
+                <div class="column"><img src="items/avocado-toast-sourdough.jpg" alt="Avocado Toast"></div>
+                <div class="column"><img src="items/dsc_0955-2.jpg" alt="BBQ Paneer Taco"></div>
+                <div class="column"><img src="items/Easy-Taco-Recipe-Dinner-Board-3-700x1050.jpg" alt="Taco Platter"></div>
+                <div class="column"><img src="items/images.jpg" alt="Crispy Potato Taco"></div>
+                <div class="column"><img src="items/loaded-nachos-banner.jpg" alt="Loaded Nachos"></div>
+                <div class="column"><img src="items/Taco-Filling-Recipe-35365-279578d33e-1638547085.jpg" alt="Taco Filling"></div>
+                <div class="column"><img src="images/emily-simenauer-IlAPq27FxZ0-unsplash.jpg" alt="Tacos Close Up"></div>
             </div>
         </div>
+
         <section class="about" id="about">
             <span class="section-subtitle">About Us</span>
             <h2 class="section-title">🌮 Welcome to La Esquina 🌮</h2>
@@ -777,7 +923,7 @@ img {
             <h2 class="section-title">Taco Menu</h2>
             <div class="card-container">
                 <div class="card animate-pop-in">
-                     <img src="images/frankie-lopez-_j4S4V2C8ew-unsplash.jpg" alt="Fajita Tacos">
+                    <img src="images/frankie-lopez-_j4S4V2C8ew-unsplash.jpg" alt="Fajita Tacos">
                     <div class="card-content">
                         <div class="card-title">Fajita Tacos</div>
                         <div class="card-description">Juicy smoky grilled pepper fajita topped with beans, pico and veggies.</div>
@@ -791,7 +937,7 @@ img {
                     </div>
                 </div>
                 <div class="card animate-pop-in">
-                     <img src="images/tai-s-captures-JiRSy0GfqPA-unsplash.jpg" alt="Broccoli Fajita Fiesta">
+                    <img src="images/tai-s-captures-JiRSy0GfqPA-unsplash.jpg" alt="Broccoli Fajita Fiesta">
                     <div class="card-content">
                         <div class="card-title">Broccoli Fajita Fiesta</div>
                         <div class="card-description">Yummy broccoli topped with chipotle and fajita with cream sauce, salsa and greens.</div>
@@ -805,8 +951,8 @@ img {
                     </div>
                 </div>
                 <div class="card animate-pop-in">
-                      <img src="images/jeswin-thomas-z_PfaGzeN9E-unsplash.jpg" alt="Double Trouble Taco">
-                     <div class="card-content">
+                    <img src="images/jeswin-thomas-z_PfaGzeN9E-unsplash.jpg" alt="Double Trouble Taco">
+                    <div class="card-content">
                         <div class="card-title">Double Trouble</div>
                         <div class="card-description">Your choice of toppings with double layered taco and tortilla with cheese center filling, loaded with greens and salsa.</div>
                     </div>
@@ -830,7 +976,7 @@ img {
             <h2 class="section-title">Legit Bites</h2>
              <div class="card-container">
                  <div class="card animate-pop-in">
-                     <img src="unwrapped-tortilla-green-plate.jpg" alt="Ranchero Tostada">
+                    <img src="unwrapped-tortilla-green-plate.jpg" alt="Ranchero Tostada">
                     <div class="card-content">
                         <div class="card-title">Ranchero Tostada</div>
                         <div class="card-description">Crunchy sourdough loaded with sour cream jalapeno, ranch and salsa with a tickle of cheese.</div>
@@ -844,7 +990,7 @@ img {
                     </div>
                 </div>
                  <div class="card animate-pop-in">
-                     <img src="bottom-view-chicken-nuggets-lettuce-sauce-plate-dark-red-table.jpg" alt="Pico Papas">
+                    <img src="bottom-view-chicken-nuggets-lettuce-sauce-plate-dark-red-table.jpg" alt="Pico Papas">
                     <div class="card-content">
                         <div class="card-title">Pico Papas</div>
                         <div class="card-description">Crunchy peri peri potato bites loaded with salsa, veggies, ranch, chipotle and lettuce.</div>
@@ -858,8 +1004,8 @@ img {
                     </div>
                 </div>
                  <div class="card animate-pop-in">
-                      <img src="melted-cheese-with-pita-pickled-chili.jpg" alt="Creema Tostada">
-                     <div class="card-content">
+                    <img src="melted-cheese-with-pita-pickled-chili.jpg" alt="Creema Tostada">
+                    <div class="card-content">
                         <div class="card-title">Creema Tostada</div>
                         <div class="card-description">Comforting cheesy sweetcorn and veggies topped on perfectly toasted sourdough.</div>
                     </div>
@@ -867,17 +1013,25 @@ img {
             </div>
         </section>
 
-        <section class="contacts" id="contacts">
+         <div class="party-panel">
+              <i class="fa-solid fa-taco panel-icon icon-left"></i>
+              <i class="fa-solid fa-pepper-hot panel-icon icon-right"></i>
+
+              <div class="panel-content">
+                 <h2>Lettuce Taco 'Bout Your Party!</h2>
+                 <p>Planning an event? We cater! <a href="#contacts">Get in touch!</a></p>
+             </div>
+         </div>
+         <section class="contacts" id="contacts">
              <h2 class="section-title2">Contact Us</h2>
             <div class="contact-container">
                 <div class="contact-info">
-                    <span></span>
                     <h3>Connect with Us</h3>
                     <p>Have questions or feedback? We'd love to hear from you!</p>
                      <div class="social-icons">
-                        <a href="tel:+918050659897" aria-label="Call Us"><i class="fa-solid fa-phone"></i></a>
-                        <a href="https://www.instagram.com/la_esquina_blr/?utm_source=ig_web_button_share_sheet" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="https://x.com/LaEsquinaTacos" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="tel:+917011609027" aria-label="Call Us"><i class="fa-solid fa-phone"></i></a>
+                         <a href="https://www.instagram.com/la_esquina_blr/?utm_source=ig_web_button_share_sheet" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://x.com/LaEsquinaTacos" aria-label="Twitter" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-twitter"></i></a>
                     </div>
                     <p>Reach out via phone, social media, or chat with us directly on WhatsApp!</p>
                 </div>
@@ -885,7 +1039,7 @@ img {
                 <div class="whatsapp-contact">
                     <h3>Chat on WhatsApp</h3>
                     <p>Click below to start a conversation directly.</p>
-                    <a href="https://wa.me/918050659897" class="whatsapp-btn" target="_blank" rel="noopener noreferrer">
+                    <a href="https://wa.me/917011609027" class="whatsapp-btn" target="_blank" rel="noopener noreferrer">
                         <i class="fa-brands fa-whatsapp"></i> Chat Now
                     </a>
                 </div>
